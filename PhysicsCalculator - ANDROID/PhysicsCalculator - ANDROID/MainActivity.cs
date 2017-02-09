@@ -43,16 +43,24 @@ namespace PhysicsCalculator___ANDROID
             float OrvitalVelocity;
             float EscapeVelocity;
             float UniGravConst = 0.0000000000667408;
+            
+            bool OnEarth;
+            bool SpringsOn;
+            bool PendulumsOn;
+            bool CircularMotion;
+            bool HasMass;
+            bool LinAccel;
+            bool UsesEnergy;
 
             // Is the calculation taking place on earth or some other place in the vast cosmos?
             ToggleButton EarthGrav = FindViewById<ToggleButton>(Resource.Id.EarthGravToggle);
             EarthGrav.Click += (o, e) =>
             {
                 if (EarthGrav.Checked)
-                    OnEarth == true;
+                    OnEarth = true;
 
                 else
-                    OnEarth == false;
+                    OnEarth = false;
             };
 
             // Is there an active spring working in the problem?
@@ -60,10 +68,10 @@ namespace PhysicsCalculator___ANDROID
             SpringsToggle.Click += (o, e) =>
             {
                 if (SpringsToggle.Checked)
-                    SpringsOn == true;
+                    SpringsOn = true;
 
                 else
-                    SpringsOn == false;
+                    SpringsOn = false;
             };
 
             // Is there a swinging pendulum?
@@ -71,10 +79,10 @@ namespace PhysicsCalculator___ANDROID
             PendulumsToggle.Click += (o, e) =>
             {
                 if (PendulumsToggle.Checked)
-                    PendulumsOn == true;
+                    PendulumsOn = true;
 
                 else
-                    PendulumsOn == false;
+                    PendulumsOn = false;
             };
             
             // Is the object moving in circular or non-circular motion?
@@ -82,37 +90,51 @@ namespace PhysicsCalculator___ANDROID
             MotionType.Click += (o, e) =>
             {
                 if (MotionType.Checked)
-                    CircularMotion == false;
+                {
+                    CircularMotion = false;
+                }
 
                 else
-                    CircularMotion == true;
+                {
+                    CircularMotion = true;
+                }
             };
             
             // What is the mass of the main object?
             CheckBox mass = FindViewById<CheckBox>(Resource.Id.MassCheck);
             mass.Click += (o, e) => {
-                if (mass.Checked) ;
-                    // Stuff goes here!
-                else;
-                    // Stuff goes here!
+                if (mass.Checked)
+                    HasMass = true;
+                else
+                    HasMass = false;
             };
 
+            // Is there any linear acceleration?
             CheckBox LinearAcceleration = FindViewById<CheckBox>(Resource.Id.AccelerationCheck);
             LinearAcceleration.Click += (o, e) => {
-                if (LinearAcceleration.Checked) ;
-                // Stuff goes here!
-                else;
-                // Stuff goes here!
+                if (LinearAcceleration.Checked)
+                {
+                    LinAccel = true;
+                    CircularMotion = false;
+                }
+                
+                else
+                {
+                    LinAccel = false;
+                    CircularMotion = true;
+                }
             };
-
+            
+            // Is there a linear velocity?
             CheckBox LinearVelocity = FindViewById<CheckBox>(Resource.Id.VelocityCheck);
             LinearVelocity.Click += (o, e) => {
-                if (LinearVelocity.Checked) ;
-                // Stuff goes here!
-                else;
-                // Stuff goes here!
+                if (LinearVelocity.Checked)
+                    LinVel = true;
+                else
+                    LinVel = false;
             };
 
+            // Is there an initial velocity?
             CheckBox InitialVelocityCheck = FindViewById<CheckBox>(Resource.Id.InitialVelocityCheck);
             checkbox.Click += (o, e) => {
                 if (checkbox.Checked) ;
@@ -121,14 +143,15 @@ namespace PhysicsCalculator___ANDROID
                 // Stuff goes here!
             };
 
-            CheckBox checkbox = FindViewById<CheckBox>(Resource.Id.checkbox);
-            checkbox.Click += (o, e) => {
-                if (checkbox.Checked) ;
-                // Stuff goes here!
-                else;
-                // Stuff goes here!
+            // Are you given anything about energy?
+            CheckBox EnergyOn = FindViewById<CheckBox>(Resource.Id.TotEnergyCheck);
+            EnergyOn.Click += (o, e) => {
+                if (EnergyOn.Checked)
+                    UsesEnergy == true;
+                else
+                    UsesEnergy == false;
             };
-
+            
             CheckBox checkbox = FindViewById<CheckBox>(Resource.Id.checkbox);
             checkbox.Click += (o, e) => {
                 if (checkbox.Checked) ;
