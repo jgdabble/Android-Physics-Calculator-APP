@@ -1,53 +1,110 @@
 using System;
+using PhysicsCalculator___WINDOWS;
 
 namespace PhysicsMath
 {
-    public class BasicLinearMotion
+    public class BasicLinearMotionCalculation
     {
-        // This is where almost all the variables are declared, there are alot...
-        // They are somewhat seperated by category.
-        double Mass;
-        double Accel;
-        double Velocity;
-        double initvelocity;
-        double Time;
-        double DeltaX;
-        double DeltaY;
-        bool NotEnoughInfo;
-        double LaunchAngle;
-        double SurfaceAngle;
-        double FrictionCoefficient;
-        double LinMom;
+        // This is where the variables needed for this class are declared.
+        public double Mass;
+        public bool mass; //The boolean is to make sure that the double has a value. If it is True, then it has a value, False means that it has no value.
 
-        double TotalEnergy;
-        double KenEnergy;
-        double PotentialEnergy;
-        double GravPotentialEnergy;
-        double SpringPotentialEnergy;
+        public double Accel;
+        public bool accel;
 
-        double SpringDisplacement;
-        double SpringConstant;
-        bool HorizontalSpring;
-        bool InEquil;
+        public double Velocity;
+        public bool velocity;
 
-        double NetForce;
-        double AppliedForce;
-        double GravForce;
-        double FrictionForce;
-        double SpringForce;
-        double AppliedForceAngle;
+        public double InitVelocity;
+        public bool initvelocity;
 
-        double GravAccel;
+        public double Time;
+        public bool time;
+
+        public double DeltaX;
+        public bool deltax;
+
+        public double DeltaY;
+        public bool deltay;
+
+        public bool NotEnoughInfo;
+
+        public double LaunchAngle;
+        public bool launchangle;
+
+        public double SurfaceAngle;
+        public bool surfaceangle;
+
+        public double FrictionCoefficient;
+        public bool frictcoef;
+
+        public double LinMom;
+        public bool linmom;
+
+        public double TotalEnergy;
+        public bool totalenergy;
+
+        public double KenEnergy;
+        public bool kenenergy;
+
+        public double PotentialEnergy;
+        public bool potenergy;
+
+        public double GravPotentialEnergy;
+        public bool gravpotenergy;
+
+        public double SpringPotentialEnergy;
+        public bool springpotenergy;
+
+        public double SpringDisplacement;
+        public bool springdisplacement;
+
+        public double SpringConstant;
+        public bool springconstant;
+
+        public bool HorizontalSpring;
+
+        public bool InEquil;
+
+        public double NetForce;
+        public bool netforce;
+
+        public double AppliedForce;
+        public bool appliedforce;
+
+        public double GravForce;
+        public bool gravforce;
+
+        public double FrictionForce;
+        public bool frictionforce;
+
+        public double SpringForce;
+        public bool springforce;
+
+        public double AppliedForceAngle;
+        public bool appliedforceangle;
+
+        public double GravAccel;
+        public bool gravaccel;
+
+        public bool horizontalvel;
+        public bool verticalvel;
+
+        public bool verticalforce;
+        public bool horizontalforce;
+
+        public bool verticalgrav;
+        public bool horizontalgrav;
 
         // This is the method that takes care of simple projectiles with a horizontal launch,
         // driving off a cliff, running off a cliff, knocking something off of a table, etc.
         public void Projectiles()
         {
-            if(Time.HasValue == false)
+            if(time == false)
             {
-                if(DeltaY.HasValue && GravAccel.HasValue == true)
+                if(deltay && gravaccel == true)
                 {
-                    Time = System.Math.Pow((DeltaY / (.5 * GravAccel)), 2);
+                    Time = Math.Pow((DeltaY / (.5 * GravAccel)), 2);
                 }
 
                 else
@@ -56,9 +113,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(DeltaY.HasValue == false)
+            if(deltay == false)
             {
-                if(GravAccel.HasValue && Time.HasValue == true)
+                if(gravaccel && time == true)
                 {
                     DeltaY = (.5 * GravAccel) * Math.Pow(Time, 2);
                 }
@@ -69,9 +126,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(DeltaX.HasValue == false)
+            if(deltax == false)
             {
-                if(Velocity.HasValue && Time.HasValue == true)
+                if(velocity && time == true)
                 {
                     DeltaX = (.5 * Velocity) * Time;
                 }
@@ -82,9 +139,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Velocity.HasValue == false)
+            if(velocity == false)
             {
-                if(DeltaX.HasValue && Time.HasValue == true)
+                if(deltax && time == true)
                 {
                     Velocity = DeltaX * Time;
                 }
@@ -101,15 +158,15 @@ namespace PhysicsMath
         // Shooting a ball from a cannon, throwing something up, or down etc.
         public void AngledLaunchProjectile()
         {
-            double verticalvel = Math.Pow((Math.Sin(LaunchAngle) * Velocity), .5);
+            double VerticalVel = Math.Pow((Math.Sin(LaunchAngle) * Velocity), .5);
 
-            double horizontalvel = Math.Pow((Math.Cos(LaunchAngle) * Velocity), .5);
+            double HorizontalVel = Math.Pow((Math.Cos(LaunchAngle) * Velocity), .5);
 
-            if(DeltaY.HasValue == false)
+            if(deltay == false)
             {
-                if(verticalvel.HasValue && GravAccel.HasValue && Time.HasValue == true)
+                if(verticalvel && gravaccel && time == true)
                 {
-                    DeltaY = (-verticalvel) + ((.5 * GravAccel) * Math.Pow(Time, 2));
+                    DeltaY = (-VerticalVel) + ((.5 * GravAccel) * Math.Pow(Time, 2));
                 }
 
                 else
@@ -118,11 +175,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(Time.HasValue == false)
+            if(time == false)
             {
-                if(DeltaY.HasValue && GravAccel.HasValue && verticalvel.HasValue == true)
+                if(deltay && gravaccel && verticalvel == true)
                 {
-                    Time = Math.Pow((DeltaY / ((.5 * GravAccel) + verticalvel)), .5);
+                    Time = Math.Pow((DeltaY / ((.5 * GravAccel) + VerticalVel)), .5);
                 }
 
                 else
@@ -131,11 +188,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(horizontalvel.HasValue == false)
+            if(horizontalvel == false)
             {
-                if(DeltaX.HasValue && Time.HasValue == true)
+                if(deltax && time == true)
                 {
-                    horizontalvel = 2 * (DeltaX / Time);
+                    HorizontalVel = 2 * (DeltaX / Time);
                 }
 
                 else
@@ -144,9 +201,9 @@ namespace PhysicsMath
                 }
             }
         
-            if(DeltaX.HasValue == false)
+            if(deltax == false)
             {
-                if(Velocity.HasValue && Time.HasValue == true)
+                if(velocity && time == true)
                 {
                     DeltaX = (.5 * Velocity) * Time;
                 }
@@ -159,15 +216,15 @@ namespace PhysicsMath
         }
 
 
-        // This method calculates the friction between two objects. Pretty simple really.
+        // This method calculates the friction between two objects. Nothing too complex.
         public void Friction()
         {
             // If the surface of the calculation is horizontal, then use this.
             if(SurfaceAngle == 0)
             {
-                if(AppliedForce.HasValue == false)
+                if(appliedforce == false)
                 {
-                    if(Mass.HasValue && Accel.HasValue && FrictionForce.HasValue == true)
+                    if(mass && accel && frictionforce == true)
                     {
                         AppliedForce = (Mass * Accel) + FrictionForce;
                     }
@@ -178,9 +235,9 @@ namespace PhysicsMath
                     }
                 }
 
-                if(FrictionForce.HasValue == false)
+                if(frictionforce == false)
                 {
-                    if(Mass.HasValue && Accel.HasValue && AppliedForce.HasValue == true)
+                    if(mass && accel && appliedforce == true)
                     {
                         FrictionForce = (Mass *Accel) - AppliedForce;
                     }
@@ -191,9 +248,9 @@ namespace PhysicsMath
                     }
                 }
 
-                if(FrictionCoefficient.HasValue == false)
+                if(frictcoef == false)
                 {
-                    if(FrictionForce.HasValue && GravForce.HasValue == true)
+                    if(frictionforce && gravforce == true)
                     {
                         FrictionCoefficient = FrictionForce / GravForce;
                     }
@@ -208,15 +265,13 @@ namespace PhysicsMath
             // Otherwise some other calculations involving angles will be required.
             else
             {
-                double verticalforce = Math.Sin(AppliedForceAngle) * AppliedForce;
+                double VerticalForce = Math.Sin(AppliedForceAngle) * AppliedForce;
 
-                double horizontalforce = Math.Cos(AppliedForceAngle) * AppliedForce;
+                double HorizontalForce = Math.Cos(AppliedForceAngle) * AppliedForce;
 
-                bool gravcompsfound = true;
-
-                if(GravForce.HasValue == false)
+                if(gravforce == false)
                 {
-                    if(Mass.HasValue && GravAccel.HasValue == true)
+                    if(mass && gravaccel == true)
                     {
                         GravForce = Mass * GravAccel;
                     }
@@ -227,12 +282,12 @@ namespace PhysicsMath
                     }
                 }
 
-                double horizontalgrav = Math.Sin(SurfaceAngle) * GravForce;
-                double verticalgrav = Math.Cos(SurfaceAngle) * GravForce;
+                double HorizontalGrav = Math.Sin(SurfaceAngle) * GravForce;
+                double VerticalGrav = Math.Cos(SurfaceAngle) * GravForce;
 
-                if(FrictionForce.HasValue = false)
+                if(frictionforce == false)
                 {
-                    if(Mass.HasValue && Accel.HasValue && AppliedForce.HasValue == false)
+                    if(mass && accel && appliedforce == true)
                     {
                         FrictionForce = -(Mass * Accel) - AppliedForce;
                     }
@@ -243,9 +298,9 @@ namespace PhysicsMath
                     }
                 }
 
-                if(AppliedForce.HasValue == false)
+                if(appliedforce == false)
                 {
-                    if(Mass.HasValue && Accel.HasValue && FrictionForce.HasValue == true)
+                    if(mass && accel && frictionforce == true)
                     {
                         AppliedForce = (Mass * Accel) + FrictionForce;
                     }
@@ -256,11 +311,11 @@ namespace PhysicsMath
                     }
                 }
 
-                if(Accel.HasValue == false)
+                if(accel == false)
                 {
-                    if(horizontalgrav.HasValue && AppliedForce.HasValue && FrictionForce.HasValue && Mass.HasValue == true)
+                    if(horizontalgrav && appliedforce && frictionforce && mass == true)
                     {
-                        Accel = (horizontalgrav + AppliedForce - FrictionForce) / Mass;
+                        Accel = (HorizontalGrav + AppliedForce - FrictionForce) / Mass;
                     }
 
                     else
@@ -269,11 +324,11 @@ namespace PhysicsMath
                     }
                 }
 
-                if(AppliedForceAngle.HasValue == false)
+                if(appliedforceangle == false)
                 {
-                    if(Mass.HasValue && Accel.HasValue && horizontalforce.HasValue == true)
+                    if(mass && accel && horizontalforce == true)
                     {
-                        FrictionForce = (Mass * Accel) - horizontalforce;
+                        FrictionForce = (Mass * Accel) - HorizontalForce;
                     }
 
                     else
@@ -282,11 +337,11 @@ namespace PhysicsMath
                     }
                 }
                    
-                if(FrictionCoefficient.HasValue == false)
+                if(frictcoef == false)
                 {
-                    if(FrictionForce.HasValue && verticalgrav.HasValue == true)
+                    if(frictionforce && verticalgrav == true)
                     {
-                        FrictionCoefficient = FrictionForce / verticalgrav;
+                        FrictionCoefficient = FrictionForce / VerticalGrav;
                     }
 
                     else
@@ -300,9 +355,9 @@ namespace PhysicsMath
         // The method for simple linear momentum and collitions.
         public void LinearMomentum()
         {
-            if(LinMom.HasValue == false)
+            if(linmom == false)
             {
-                if(Mass.HasValue && Velocity.HasValue == true)
+                if(mass && velocity == true)
                 {
                     LinMom = Mass * Velocity;
                 }
@@ -313,9 +368,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Velocity.HasValue == false)
+            if(velocity == false)
             {
-                if(LinMom.HasValue && Mass.HasValue == true)
+                if(linmom && mass == true)
                 {
                     Velocity = LinMom / Mass;
                 }
@@ -326,9 +381,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Mass.HasValue == false)
+            if(mass == false)
             {
-                if(LinMom.HasValue && Velocity.HasValue == true)
+                if(linmom && velocity == true)
                 {
                     Mass = LinMom / Velocity;
                 }
@@ -349,9 +404,9 @@ namespace PhysicsMath
         // For real this time...
         public void Energy()
         {
-            if(KenEnergy.HasValue == false)
+            if(kenenergy == false)
             {
-                if(Mass.HasValue && Velocity.HasValue == true)
+                if(mass && velocity == true)
                 {
                     KenEnergy = (.5 * Mass) * Math.Pow(Velocity, 2);
                 }
@@ -362,9 +417,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(GravPotentialEnergy.HasValue == false)
+            if(gravpotenergy == false)
             {
-                if(Mass.HasValue && GravAccel.HasValue && DeltaY.HasValue == true)
+                if(mass && gravaccel && deltay == true)
                 {
                     GravPotentialEnergy = Mass * GravAccel * DeltaY;
                 }
@@ -375,9 +430,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(SpringPotentialEnergy.HasValue == false)
+            if(springpotenergy == false)
             {
-                if(SpringConstant.HasValue && SpringDisplacement.HasValue == true)
+                if(springconstant && springdisplacement == true)
                 {
                     SpringPotentialEnergy = (.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2);
                 }
@@ -388,59 +443,59 @@ namespace PhysicsMath
                 }
             }
 
-            if(TotalEnergy.HasValue == false)
+            if(totalenergy == false)
             {
                 // This Calculates the total system energy.
-                if(KenEnergy.HasValue && GravPotentialEnergy.HasValue == true)
+                if(kenenergy && gravpotenergy == true)
                 {
                     TotalEnergy = KenEnergy + GravPotentialEnergy;
                 }
 
                 else
                 {
-                    if(KenEnergy.HasValue && SpringPotentialEnergy.HasValue == true)
+                    if(kenenergy && springpotenergy == true)
                     {
                         TotalEnergy = KenEnergy + SpringPotentialEnergy;
                     }
 
                     else
                     {
-                        if(Mass.HasValue && Velocity.HasValue && GravPotentialEnergy.HasValue == true)
+                        if(mass && velocity && gravpotenergy == true)
                         {
                             TotalEnergy = ((Mass * .5) * Math.Pow(Velocity, 2)) + GravPotentialEnergy;
                         }
 
                         else
                         {
-                            if(Mass.HasValue && Velocity.HasValue && SpringPotentialEnergy.HasValue == true)
+                            if(mass && velocity && springpotenergy == true)
                             {
                                 TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + SpringPotentialEnergy;
                             }
 
                             else
                             {
-                                if(KenEnergy.HasValue && Mass.HasValue && GravAccel.HasValue && DeltaY.HasValue == true)
+                                if(kenenergy && mass && gravaccel && deltay == true)
                                 {
                                     TotalEnergy = KenEnergy + (Mass * GravAccel * DeltaY);
                                 }
 
                                 else
                                 {
-                                    if(KenEnergy.HasValue && SpringDisplacement.HasValue && SpringConstant.HasValue == true)
+                                    if(kenenergy && springdisplacement && springconstant == true)
                                     {
                                         TotalEnergy = KenEnergy + ((.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2));
                                     }
 
                                     else
                                     {
-                                        if(Mass.HasValue && Velocity.HasValue && GravAccel.HasValue && DeltaY.HasValue == true)
+                                        if(mass && velocity && gravpotenergy && deltay == true)
                                         {
                                             TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + (Mass * GravAccel * DeltaY);
                                         }
 
                                         else
                                         {
-                                            if(Mass.HasValue && Velocity.HasValue && SpringConstant.HasValue && SpringDisplacement.HasValue == true)
+                                            if(mass && velocity && springconstant && springdisplacement == true)
                                             {
                                                 TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + ((.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2));
                                             }
@@ -465,9 +520,9 @@ namespace PhysicsMath
             // If the spring is horizontal, do this.
             if(HorizontalSpring == true)
             {
-                if(SpringForce.HasValue == false)
+                if(springforce == false)
                 {
-                    if(SpringConstant.HasValue && SpringDisplacement.HasValue == true)
+                    if(springconstant && springdisplacement == true)
                     {
                         SpringForce = SpringConstant * SpringDisplacement;
                     }
@@ -478,9 +533,9 @@ namespace PhysicsMath
                     }
                 }
 
-                if(SpringConstant.HasValue == false)
+                if(springconstant == false)
                 {
-                    if(SpringForce.HasValue && SpringDisplacement.HasValue == true)
+                    if(springforce && springdisplacement == true)
                     {
                         SpringConstant = SpringForce / SpringDisplacement;
                     }
@@ -491,9 +546,9 @@ namespace PhysicsMath
                     }
                 }
 
-                if(SpringDisplacement.HasValue == false)
+                if(springdisplacement == false)
                 {
-                    if(SpringForce.HasValue && SpringDisplacement.HasValue == true)
+                    if(springforce && springdisplacement == true)
                     {
                         SpringDisplacement = SpringForce / SpringConstant;
                     }
@@ -511,23 +566,23 @@ namespace PhysicsMath
                 // If the vertical spring is is equilibrium, do this.
                 if(InEquil == true)
                 {
-                    if(SpringForce.HasValue == false)
+                    if(springforce == false)
                     {
-                        if(GravForce.HasValue == true)
+                        if(gravforce == true)
                         {
                             SpringForce = GravForce;
                         }
 
                         else
                         {
-                            if(Mass.HasValue && GravAccel.HasValue == true)
+                            if(mass && gravaccel == true)
                             {
                                 SpringForce = Mass * GravAccel;
                             }
 
                             else
                             {
-                                if(SpringDisplacement.HasValue && SpringConstant.HasValue == true)
+                                if(springdisplacement && springconstant == true)
                                 {
                                     SpringForce = SpringConstant * SpringDisplacement;
                                 }
@@ -540,23 +595,23 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(GravForce.HasValue == false)
+                    if(gravforce == false)
                     {
-                        if(SpringForce.HasValue == true)
+                        if(springforce == true)
                         {
                             GravForce = SpringForce;
                         }
 
                         else
                         {
-                            if(Mass.HasValue && GravAccel.HasValue == true)
+                            if(mass && gravaccel == true)
                             {
                                 GravForce = Mass * GravAccel;
                             }
 
                             else
                             {
-                                if(SpringDisplacement.HasValue && SpringConstant.HasValue == true)
+                                if(springdisplacement && springdisplacement == true)
                                 {
                                     GravForce = SpringConstant * SpringDisplacement;
                                 }
@@ -569,23 +624,23 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(SpringDisplacement.HasValue == false)
+                    if(springdisplacement == false)
                     {
-                        if(SpringForce.HasValue && SpringConstant.HasValue == true)
+                        if(springforce && springconstant == true)
                         {
                             SpringDisplacement = SpringForce / SpringConstant;
                         }
 
                         else
                         {
-                            if(GravForce.HasValue && SpringConstant.HasValue == true)
+                            if(gravforce && springconstant == true)
                             {
                                 SpringDisplacement = GravForce / SpringConstant;
                             }
 
                             else
                             {
-                                if(Mass.HasValue && GravAccel.HasValue && SpringConstant.HasValue == true)
+                                if(mass && gravaccel && springconstant == true)
                                 {
                                     SpringDisplacement = (Mass * GravAccel) / SpringConstant;
                                 }
@@ -598,23 +653,23 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(SpringConstant.HasValue == false)
+                    if(springconstant == false)
                     {
-                        if(SpringForce.HasValue && SpringDisplacement.HasValue == true)
+                        if(springforce && springforce == true)
                         {
                             SpringConstant = SpringForce / SpringDisplacement;
                         }
 
                         else
                         {
-                            if(GravForce.HasValue && SpringDisplacement.HasValue == true)
+                            if(gravforce && springdisplacement == true)
                             {
                                 SpringConstant = GravForce / SpringDisplacement;
                             }
 
                             else
                             {
-                                if(Mass.HasValue && GravAccel.HasValue && SpringDisplacement.HasValue == true)
+                                if(mass && gravaccel && springdisplacement == true)
                                 {
                                     SpringConstant = (Mass * GravAccel) / SpringDisplacement;
                                 }
@@ -627,23 +682,23 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(Mass.HasValue == false)
+                    if(mass == false)
                     {
-                        if(GravForce.HasValue && GravAccel.HasValue == true)
+                        if(gravforce && gravaccel == true)
                         {
                             Mass = GravForce / GravAccel;
                         }
 
                         else
                         {
-                            if(SpringForce.HasValue && GravAccel.HasValue == true)
+                            if(springforce && gravaccel == true)
                             {
                                 Mass = SpringForce / GravAccel;
                             }
 
                             else
                             {
-                                if(SpringConstant.HasValue && GravAccel.HasValue && SpringDisplacement.HasValue == true)
+                                if(springconstant && gravaccel && springdisplacement == true)
                                 {
                                     Mass = (SpringConstant * SpringDisplacement) / GravAccel;
                                 }
@@ -656,23 +711,23 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(GravAccel.HasValue == false)
+                    if(gravaccel == false)
                     {
-                       if(GravForce.HasValue && GravAccel.HasValue == true)
+                       if(gravforce && mass == true)
                         {
                             GravAccel = GravForce / Mass;
                         }
 
                         else
                         {
-                            if(SpringForce.HasValue && GravAccel.HasValue == true)
+                            if(springforce && gravaccel == true)
                             {
                                 GravAccel = SpringForce / Mass;
                             }
 
                             else
                             {
-                                if(SpringConstant.HasValue && GravAccel.HasValue && SpringDisplacement.HasValue == true)
+                                if(springconstant && gravaccel && springdisplacement == true)
                                 {
                                     GravAccel = (SpringConstant * SpringDisplacement) / Mass;
                                 }
@@ -689,9 +744,9 @@ namespace PhysicsMath
                 // Otherwise it's not is equilibrium, which means it gets more complicated.
                 else
                 {
-                    if(SpringForce.HasValue == false)
+                    if(springforce == false)
                     {
-                        if(SpringConstant.HasValue && SpringDisplacement.HasValue == true)
+                        if(springconstant && springdisplacement == true)
                         {
                             SpringForce = SpringConstant * SpringDisplacement;
                         }
@@ -702,9 +757,9 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(SpringConstant.HasValue == false)
+                    if(springconstant == false)
                     {
-                        if(SpringForce.HasValue && SpringDisplacement.HasValue == true)
+                        if(springforce && springdisplacement == true)
                         {
                             SpringConstant = SpringForce / SpringDisplacement;
                         }
@@ -715,9 +770,9 @@ namespace PhysicsMath
                         }
                     }
 
-                    if(SpringDisplacement.HasValue == false)
+                    if(springdisplacement == false)
                     {
-                        if(SpringForce.HasValue && SpringDisplacement.HasValue == true)
+                        if(springforce && springconstant == true)
                         {
                             SpringDisplacement = SpringForce / SpringConstant;
                         }
@@ -733,30 +788,82 @@ namespace PhysicsMath
     }
 
     // The Class for, well, circular motion...
-    public class CircularMotion
+    public class CircularMotionCalculation
     {
         double Mass;
+        bool mass;
+
         double Torgue;
+        bool torgue;
+
         double TanVelocity;
+        bool tanvelocity;
+
         double AngularVelocity;
+        bool angularvelocity;
+
         double Radius;
+        bool radius;
+
         double Accel;
+        bool accel;
+
         double AngularAccel;
+        bool angularaccel;
+
         double Period;
+        bool period;
+
         double CentriAccel;
+        bool centriaccel;
+
         double CentriNetForce;
+        bool centrinetforce;
+
         double MinTopVel;
+        bool mintopvel;
+
         double MinBotVel;
+        bool minbotvel;
+
         double MaxVel;
+        bool maxvel;
+
         double Tension;
+        bool tension;
+
+        double GravAccel;
+        bool gravaccel;
+
+        double PendulumLength;
+        bool pendulumlength;
+
+        double AppliedForce;
+        bool appliedforce;
+
+        double Theta;
+        bool theta;
+
+        double InertMom;
+        bool inertmom;
+
+        double Velocity;
+        bool velocity;
+
+        double RotKenEnergy;
+        bool rotkenenergy;
+
+        double KenEnergy;
+        bool kenenergy;
+
         bool NotEnoughInfo;
 
         public void HorizontalCircle()
         {
             // Basic Calculations for horizontal Circular motion.
-            if(TanVelocity.HasValue == false)
+            if(tanvelocity == false)
             {
-                if(Radius.HasValue && Period.HasValue == true)
+                if(radius && period == true)
                 {
                     TanVelocity = ((2 * Math.PI) * Radius) / Period;
                 }
@@ -767,9 +874,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Radius.HasValue == false)
+            if(radius == false)
             {
-                if(TanVelocity.HasValue && Period.HasValue == true)
+                if(tanvelocity && period == true)
                 {
                     Radius = (TanVelocity * Period) / (2 * Math.PI);
                 }
@@ -780,9 +887,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Period.HasValue == false)
+            if(period == false)
             {
-                if(Radius.HasValue && TanVelocity.HasValue == true)
+                if(radius && tanvelocity == true)
                 {
                     Period = ((2 * Math.PI) * Radius) / TanVelocity;
                 }
@@ -793,11 +900,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(CentriNetForce.HasValue == false)
+            if(centrinetforce == false)
             {
-                if(Mass.HasValue && TanVelocity.HasValue && Radius.HasValue == true)
+                if(mass && tanvelocity && radius == true)
                 {
-                    CentriNetForce = (Mass * Math.Sin(TanVelocity, 2)) / Radius;
+                    CentriNetForce = (Mass * Math.Pow(TanVelocity, 2)) / Radius;
                 }
 
                 else
@@ -810,9 +917,9 @@ namespace PhysicsMath
         public void VerticalCircle()
         {
             // Basic Calculations for vertical circular motion.
-            if(TanVelocity.HasValue == false)
+            if(tanvelocity == false)
             {
-                if(Radius.HasValue && Period.HasValue == true)
+                if(radius && period == true)
                 {
                     TanVelocity = ((2 * Math.PI) * Radius) / Period;
                 }
@@ -823,9 +930,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Radius.HasValue == false)
+            if(radius == false)
             {
-                if(TanVelocity.HasValue && Period.HasValue == true)
+                if(tanvelocity && period == true)
                 {
                     Radius = (TanVelocity * Period) / (2 * Math.PI);
                 }
@@ -836,9 +943,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Period.HasValue == false)
+            if(period == false)
             {
-                if(Radius.HasValue && TanVelocity.HasValue == true)
+                if(radius && tanvelocity == true)
                 {
                     Period = ((2 * Math.PI) * Radius) / TanVelocity;
                 }
@@ -849,11 +956,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(CentriNetForce.HasValue == false)
+            if(centrinetforce == false)
             {
-                if(Mass.HasValue && TanVelocity.HasValue && Radius.HasValue == true)
+                if(mass && tanvelocity && radius == true)
                 {
-                    CentriNetForce = (Mass * (TanVelocity ** 2)) / Radius;
+                    CentriNetForce = (Mass * Math.Pow(TanVelocity, 2)) / Radius;
                 }
 
                 else
@@ -862,11 +969,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(MinTopVel.HasValue == false)
+            if(mintopvel == false)
             {
-                if(GravAccel.HasValue && Radius.HasValue == true)
+                if(gravaccel && radius == true)
                 {
-                    MinTopVel = (GravAccel * Radius) ** .5;
+                    MinTopVel = Math.Pow((GravAccel * Radius), .5);
                 }
 
                 else
@@ -875,11 +982,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(MinBotVel.HasValue == false)
+            if(minbotvel == false)
             {
-                if(MinTopVel.HasValue && GravAccel.HasValue && Radius.HasValue == true)
+                if(mintopvel && gravaccel && radius == true)
                 {
-                    MinBotVel = MinTopVel + (GravAccel * 2 * Radius) ** .5;
+                    MinBotVel = MinTopVel + Math.Pow((GravAccel * 2 * Radius), .5);
                 }
 
                 else
@@ -892,11 +999,11 @@ namespace PhysicsMath
         public void Pendulum()
         {
             // Basic calculations for pendulums.
-            if(Period.HasValue == false)
+            if(period == false)
             {
-                if(PendulumLength.HasValue == true && GravAccel.HasValue == true)
+                if(pendulumlength == true && gravaccel == true)
                 {
-                    Period = (2 * Math.PI) * ((PendulumLength / GravAccel) ** .5);
+                    Period = (2 * Math.PI) * Math.Pow((PendulumLength / GravAccel), .5);
                 }
 
                 else
@@ -905,11 +1012,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(PendulumLength.HasValue == false)
+            if(pendulumlength == false)
             {
-                if(Period.HasValue && GravAccel.HasValue == true)
+                if(period && gravaccel == true)
                 {
-                    PendulumLength = (((2 * Math.PI) * Period) ** 2) * GravAccel;
+                    PendulumLength = Math.Pow(((2 * Math.PI) * Period), 2) * GravAccel;
                 }
 
                 else
@@ -921,25 +1028,25 @@ namespace PhysicsMath
 
         public void RotationalComponents()
         {
-            if (Torgue.HasValue == false)
+            if(torgue == false)
             {
-                if (AppliedForce.HasValue && Radius.HasValue == true)
+                if(appliedforce && radius == true)
                 {
-                    Torgue = (AppliedForce * Radius) * math.sin(Theta);
+                    Torgue = (AppliedForce * Radius) * Math.Sin(Theta);
                 }
 
                 else
                 {
-                    if (InertMom.HasValue && AngularAccel.HasValue == true)
+                    if(inertmom && angularaccel == true)
                     {
                         Torgue = InertMom * AngularAccel;
                     }
 
                     else
                     {
-                        if (Mass.HasValue && Radius.HasValue && AngularAccel.HasValue == true)
+                        if(mass && radius && angularaccel == true)
                         {
-                            Torgue = (Mass * (Radius * *2)) * AngularAccel;
+                            Torgue = (Mass * Math.Pow(Radius, 2)) * AngularAccel;
                         }
 
                         else
@@ -951,9 +1058,9 @@ namespace PhysicsMath
             }
 
             // Angular velocity, acceleration, displacement, instance of momentum etc.
-            if(Velocity.HasValue == false)
+            if(velocity == false)
             {
-                if(Radius.HasValue && AngularVelocity.HasValue == true)
+                if(radius && angularvelocity == true)
                 {
                     Velocity = Radius * AngularVelocity;
                 }
@@ -964,9 +1071,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(AngularVelocity.HasValue == false)
+            if(angularvelocity == false)
             {
-                if(Velocity.HasValue && Radius.HasValue == true)
+                if(velocity && radius == true)
                 {
                     AngularVelocity = Velocity / Radius;
                 }
@@ -977,16 +1084,16 @@ namespace PhysicsMath
                 }
             }
 
-            if(Radius.HasValue == false)
+            if(radius == false)
             {
-                if(Velocity.HasValue && AngularVelocity.HasValue == true)
+                if(velocity && angularvelocity == true)
                 {
                     Radius = Velocity / AngularVelocity;
                 }
 
                 else
                 {
-                    if(Accel.HasValue && AngularAccel.HasValue == true)
+                    if(accel && angularaccel == true)
                     {
                         Radius = Accel / AngularAccel;
                     }
@@ -998,9 +1105,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Accel.HasValue == false)
+            if(accel == false)
             {
-                if(Radius.HasValue && AngularAccel.HasValue == true)
+                if(radius && angularaccel == true)
                 {
                     Accel = Radius * AngularAccel;
                 }
@@ -1011,9 +1118,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(AngularAccel.HasValue == false)
+            if(angularaccel == false)
             {
-                if(Accel.HasValue && Radius.HasValue == true)
+                if(accel && radius == true)
                 {
                     AngularAccel = Accel / Radius;
                 }
@@ -1027,39 +1134,39 @@ namespace PhysicsMath
 
         // This calculates Rotational kenetic energy, which is different from linear kenetic energy.
         // not really, they are basically the same in every way execpt for the equation, and even that is almost identical.
-        public void RotKenEnergy()
+        public void RotationalKenEnergy()
         {
-            if(RotKenEnergy.HasValue == false)
+            if(rotkenenergy == false)
             {
-                if(InertMom.HasValue && AngularVelocity.HasValue == true)
+                if(inertmom && angularvelocity == true)
                 {
-                    RotKenEnergy = (.5 * InertMom) * (AngularVelocity ** 2);
+                    RotKenEnergy = (.5 * InertMom) * Math.Pow(AngularVelocity, 2);
                 }
 
                 else
                 {
-                    if(Mass.HasValue && Radius.HasValue && AngularVelocity.HasValue == true)
+                    if(mass && radius && angularvelocity == true)
                     {
-                        RotKenEnergy = (.5 * (Mass * (Radius ** 2))) * AngularVelocity;
+                        RotKenEnergy = (.5 * (Mass * Math.Pow(Radius, 2))) * AngularVelocity;
                     }
 
                     else
                     {
-                        if(Velocity.HasValue && Radius.HasValue && InertMom.HasValue == true)
+                        if(velocity && radius && inertmom == true)
                         {
-                            RotKenEnergy = (.5 * InertMom) * ((Velocity / Radius) ** 2);
+                            RotKenEnergy = (.5 * InertMom) * Math.Pow((Velocity / Radius), 2);
                         }
 
                         else
                         {
-                            if(Mass.HasValue && Radius.HasValue && Velocity.HasValue == true)
+                            if(mass && radius && velocity == true)
                             {
-                                RotKenEnergy = (.5 * (Mass * (Radius ** 2))) * ((Velocity / Radius) ** 2);
+                                RotKenEnergy = (.5 * (Mass * Math.Pow(Radius, 2))) * Math.Pow((Velocity / Radius), 2);
                             }
 
                             else
                             {
-                                if(KenEnergy.HasValue && Radius.HasValue == true)
+                                if(kenenergy && radius == true)
                                 {
                                     RotKenEnergy = KenEnergy / Radius;
                                 }
@@ -1073,28 +1180,101 @@ namespace PhysicsMath
                     }
                 }
             }
+
+            if(kenenergy == false)
+            {
+                if(rotkenenergy && radius == true)
+                {
+                    KenEnergy = RotKenEnergy * Radius;
+                }
+
+                else
+                {
+                    if (mass && radius && angularvelocity == true)
+                    {
+                        RotKenEnergy = (.5 * (Mass * Math.Pow(Radius, 2))) * AngularVelocity;
+                    }
+
+                    else
+                    {
+                        if (velocity && radius && inertmom == true)
+                        {
+                            RotKenEnergy = (.5 * InertMom) * Math.Pow((Velocity / Radius), 2);
+                        }
+
+                        else
+                        {
+                            if (mass && radius && velocity == true)
+                            {
+                                KenEnergy = ((.5 * (Mass * Math.Pow(Radius, 2))) * Math.Pow((Velocity / Radius), 2)) * Radius;
+                            }
+
+                            else
+                            {
+                                NotEnoughInfo = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(radius == false)
+            {
+                if(kenenergy && rotkenenergy == true)
+                {
+                    Radius = KenEnergy / RotKenEnergy;
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
         }
     }
 
-    public class Gravity
+    public class GravityCalculation
     {
         double GravAccel;
+        bool gravaccel;
+
+        double GravForce;
+        bool gravforce;
+
         double SatMass;
+        bool satmass;
+
         double PlanMass;
+        bool planmass;
+
         double OrbitalGravForce;
-        double OrvitalVelocity;
+        bool orbitalgravforce;
+
+        double OrbitalVelocity;
+        bool orbitalvelocity;
+
         double EscapeVelocity;
+        bool escapevelocity;
+
         double UniGravConst = 0.0000000000667408F;
+   
         double GravPotentialEnergy;
+        bool gravpotenergy;
+
         double OrbitalPeriod;
+        bool orbitalperiod;
+
+        double Radius;
+        bool radius;
+
         bool NotEnoughInfo;
 
         public void Orbits()
         {
             // Calculations for Orbital problems.
-            if(GravPotentialEnergy.HasValue == false)
+            if(gravpotenergy == false)
             {
-                if(UniGravConst.HasValue && SatMass.HasValue && PlanMass.HasValue && Radius.HasValue == true)
+                if(satmass && planmass && radius == true)
                 {
                     GravPotentialEnergy = -(UniGravConst * SatMass * PlanMass) / Radius;
                 }
@@ -1105,9 +1285,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(SatMass.HasValue == false)
+            if(satmass == false)
             {
-                if(GravPotentialEnergy.HasValue && Radius.HasValue && PlanMass.HasValue == true)
+                if(gravpotenergy && radius && planmass == true)
                 {
                     SatMass = (GravPotentialEnergy * Radius) / -(UniGravConst * PlanMass);
                 }
@@ -1118,9 +1298,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(PlanMass.HasValue == false)
+            if(planmass == false)
             {
-                if(GravPotentialEnergy.HasValue && Radius.HasValue && SatMass.HasValue == true)
+                if(gravpotenergy && radius && satmass == true)
                 {
                     PlanMass = (GravPotentialEnergy * Radius) / -(UniGravConst * SatMass);
                 }
@@ -1131,9 +1311,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Radius.HasValue == false)
+            if(radius == false)
             {
-                if(SatMass.HasValue && PlanMass.HasValue && GravPotentialEnergy.HasValue == true)
+                if(satmass && planmass && gravpotenergy == true)
                 {
                     Radius = -(UniGravConst * SatMass * PlanMass) / GravPotentialEnergy;
                 }
@@ -1144,11 +1324,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(OrbitalVelocity.HasValue == false)
+            if(orbitalvelocity == false)
             {
-                if(PlanMass.HasValue && Radius.HasValue == true)
+                if(planmass && radius == true)
                 {
-                    OrbitalVelocity = ((UniGravConst * PlanMass) / Radius) ** .5;
+                    OrbitalVelocity = Math.Pow(((UniGravConst * PlanMass) / Radius), .5);
                 }
 
                 else
@@ -1157,11 +1337,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(OrbitalPeriod.HasValue == false)
+            if(orbitalperiod == false)
             {
-                if(Radius.HasValue && mass.HasValue == true)
+                if(radius && satmass == true)
                 {
-                    OrbitalPeriod = (2 * Math.PI) * ((Radius ** 3) / (UniGravConst * mass)) ** .5;
+                    OrbitalPeriod = (2 * Math.PI) * Math.Pow((Math.Pow(Radius, 3) / (UniGravConst * SatMass)), .5);
                 }
 
                 else
@@ -1174,9 +1354,9 @@ namespace PhysicsMath
         public void GravCal()
         {
             // Everything else involving gravity.
-            if(GravPotentialEnergy.HasValue == false)
+            if(gravpotenergy == false)
             {
-                if(SatMass.HasValue && PlanMass.HasValue && Radius.HasValue == true)
+                if(satmass && planmass && radius == true)
                 {
                     GravPotentialEnergy = -(UniGravConst * SatMass * PlanMass) / Radius;
                 }
@@ -1187,9 +1367,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(SatMass.HasValue == false)
+            if(satmass == false)
             {
-                if(GravPotentialEnergy.HasValue && Radius.HasValue && PlanMass.HasValue == true)
+                if(gravpotenergy && radius && planmass == true)
                 {
                     SatMass = (GravPotentialEnergy * Radius) / -(UniGravConst * PlanMass);
                 }
@@ -1200,9 +1380,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(PlanMass.HasValue == false)
+            if(planmass == false)
             {
-                if(GravPotentialEnergy.HasValue && Radius.HasValue && SatMass.HasValue == true)
+                if(gravpotenergy && radius && satmass == true)
                 {
                     PlanMass = (GravPotentialEnergy * Radius) / -(UniGravConst * SatMass);
                 }
@@ -1213,9 +1393,9 @@ namespace PhysicsMath
                 }
             }
 
-            if(Radius.HasValue == false)
+            if(radius == false)
             {
-                if(SatMass.HasValue && PlanMass.HasValue && GravPotentialEnergy.HasValue == true)
+                if(satmass && planmass && gravpotenergy == true)
                 {
                     Radius = -(UniGravConst * SatMass * PlanMass) / GravPotentialEnergy;
                 }
@@ -1226,11 +1406,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(GravAccel.HasValue == false)
+            if(gravaccel == false)
             {
-                if(GravForce.HasValue && mass.HasValue == true)
+                if(gravforce && satmass == true)
                 {
-                    GravAccel = GravForce / Mass;
+                    GravAccel = GravForce / SatMass;
                 }
 
                 else
@@ -1239,11 +1419,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(GravForce.HasValue == false)
+            if(gravforce == false)
             {
-                if(GravAccel.HasValue && Mass.HasValue == true)
+                if(gravaccel && satmass == true)
                 {
-                    GravForce = GravAccel * Mass;
+                    GravForce = GravAccel * SatMass;
                 }
 
                 else
@@ -1252,11 +1432,11 @@ namespace PhysicsMath
                 }
             }
 
-            if(Mass.HasValue == false)
+            if(satmass == false)
             {
-                if(GravForce.HasValue && GravAccel.HasValue == true)
+                if(gravforce && gravaccel == true)
                 {
-                    Mass = GravForce / GravAccel;
+                    SatMass = GravForce / GravAccel;
                 }
 
                 else
@@ -1264,6 +1444,956 @@ namespace PhysicsMath
                     NotEnoughInfo = true;
                 }
             }
+        }
+    }
+}
+
+namespace PhysicsSolver
+{
+    public class BasicCalulation
+    {
+        // This is where the variables needed for this class are declared.
+        public double Mass;
+        public bool mass; //The boolean is to make sure that the double has a value. If it is True, then it has a value, False means that it has no value.
+
+        public double Accel;
+        public bool accel;
+
+        public double Velocity;
+        public bool velocity;
+
+        public double InitVelocity;
+        public bool initvelocity;
+
+        public double Time;
+        public bool time;
+
+        public double DeltaX;
+        public bool deltax;
+
+        public double DeltaY;
+        public bool deltay;
+
+        public bool NotEnoughInfo;
+
+        public double LaunchAngle;
+        public bool launchangle;
+
+        public double SurfaceAngle;
+        public bool surfaceangle;
+
+        public double FrictionCoefficient;
+        public bool frictcoef;
+
+        public double LinMom;
+        public bool linmom;
+
+        public double TotalEnergy;
+        public bool totalenergy;
+
+        public double KenEnergy;
+        public bool kenenergy;
+
+        public double PotentialEnergy;
+        public bool potenergy;
+
+        public double GravPotentialEnergy;
+        public bool gravpotenergy;
+
+        public double SpringPotentialEnergy;
+        public bool springpotenergy;
+
+        public double SpringDisplacement;
+        public bool springdisplacement;
+
+        public double SpringConstant;
+        public bool springconstant;
+
+        public bool HorizontalSpring;
+
+        public bool InEquil;
+
+        public double NetForce;
+        public bool netforce;
+
+        public double AppliedForce;
+        public bool appliedforce;
+
+        public double GravForce;
+        public bool gravforce;
+
+        public double FrictionForce;
+        public bool frictionforce;
+
+        public double SpringForce;
+        public bool springforce;
+
+        public double AppliedForceAngle;
+        public bool appliedforceangle;
+
+        public double GravAccel;
+        public bool gravaccel;
+
+        public bool horizontalvel;
+        public bool verticalvel;
+
+        public bool verticalforce;
+        public bool horizontalforce;
+
+        public bool verticalgrav;
+        public bool horizontalgrav;
+
+        public double NormalForce;
+        public bool normalforce;
+
+        public void SolveMass()
+        {
+            double VerticalForce = Math.Sin(AppliedForceAngle) * AppliedForce;
+            double HorizontalForce = Math.Cos(AppliedForceAngle) * AppliedForce;
+
+            double HorizontalGrav = Math.Sin(SurfaceAngle) * GravForce;
+            double VerticalGrav = Math.Cos(SurfaceAngle) * GravForce;
+
+            if (horizontalgrav && appliedforce && frictionforce && accel == true)
+            {
+                Mass = (HorizontalGrav + AppliedForce - FrictionForce) / Accel;
+            }
+
+            else
+            {
+                if (velocity && linmom == true)
+                {
+                    Mass = LinMom / Velocity;
+                }
+
+                else
+                {
+                    if (linmom && velocity == true)
+                    {
+                        Mass = LinMom / Velocity;
+                    }
+
+                    else
+                    {
+                        if (gravaccel && gravforce == true)
+                        {
+                            GravAccel = GravForce / Mass;
+                        }
+
+                        else
+                        {
+                            NotEnoughInfo = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SolveVelocity()
+        {
+            if (deltax && time == true)
+            {
+                Velocity = DeltaX * Time;
+            }
+
+            else
+            {
+                if (linmom && mass == true)
+                {
+                    Velocity = LinMom / Mass;
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+        }
+
+        public void SolveInitVel()
+        {
+            if (velocity && time && accel == true)
+            {
+                InitVelocity = Velocity - (Time * Accel);
+            }
+        }
+
+        public void SolveAccel()
+        {
+            double VerticalForce = Math.Sin(AppliedForceAngle) * AppliedForce;
+            double HorizontalForce = Math.Cos(AppliedForceAngle) * AppliedForce;
+
+            double HorizontalGrav = Math.Sin(SurfaceAngle) * GravForce;
+            double VerticalGrav = Math.Cos(SurfaceAngle) * GravForce;
+
+            if (velocity && initvelocity && time == true)
+            {
+                Accel = (Velocity - InitVelocity) / Time;
+            }
+
+            else
+            {
+                if (horizontalgrav && appliedforce && frictionforce && mass == true)
+                {
+                    Accel = (HorizontalGrav + AppliedForce - FrictionForce) / Mass;
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+        }
+
+        public void SolveDistance()
+        {
+            if (velocity && time == true)
+            {
+                DeltaX = (.5 * Velocity) * Time;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveHeight()
+        {
+            if (gravaccel && time == true)
+            {
+                DeltaY = (.5 * GravAccel) * Math.Pow(Time, 2);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveGravAccel()
+        {
+            if (gravforce && mass == true)
+            {
+                GravAccel = GravForce / Mass;
+            }
+
+            else
+            {
+                if (springforce && gravaccel == true)
+                {
+                    GravAccel = SpringForce / Mass;
+                }
+
+                else
+                {
+                    if (springconstant && gravaccel && springdisplacement == true)
+                    {
+                        GravAccel = (SpringConstant * SpringDisplacement) / Mass;
+                    }
+
+                    else
+                    {
+                        NotEnoughInfo = true;
+                    }
+                }
+            }
+        }
+
+        public void SolveAppliedForce()
+        {
+            if (mass && accel && frictionforce == true)
+            {
+                AppliedForce = (Mass * Accel) + FrictionForce;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveAppliedForceAngle()
+        {
+            double VerticalForce = Math.Sin(AppliedForceAngle) * AppliedForce;
+            double HorizontalForce = Math.Cos(AppliedForceAngle) * AppliedForce;
+
+            double HorizontalGrav = Math.Sin(SurfaceAngle) * GravForce;
+            double VerticalGrav = Math.Cos(SurfaceAngle) * GravForce;
+
+            if (mass && accel && horizontalforce == true)
+            {
+                FrictionForce = (Mass * Accel) - HorizontalForce;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveFrictionForce()
+        {
+            if (mass && accel && appliedforce == true)
+            {
+                FrictionForce = (Mass * Accel) - AppliedForce;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveFrictCoef()
+        {
+            if (frictionforce && gravforce == true)
+            {
+                FrictionCoefficient = FrictionForce / GravForce;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveGravForce()
+        {
+            if (mass && gravaccel == true)
+            {
+                GravForce = Mass * GravAccel;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveNormalForce()
+        {
+            // will put stuff here later...
+        }
+
+        public void SolveTotalEnergy()
+        {
+            if (kenenergy && gravpotenergy == true)
+            {
+                TotalEnergy = KenEnergy + GravPotentialEnergy;
+            }
+
+            else
+            {
+                if (kenenergy && springpotenergy == true)
+                {
+                    TotalEnergy = KenEnergy + SpringPotentialEnergy;
+                }
+
+                else
+                {
+                    if (mass && velocity && gravpotenergy == true)
+                    {
+                        TotalEnergy = ((Mass * .5) * Math.Pow(Velocity, 2)) + GravPotentialEnergy;
+                    }
+
+                    else
+                    {
+                        if (mass && velocity && springpotenergy == true)
+                        {
+                            TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + SpringPotentialEnergy;
+                        }
+
+                        else
+                        {
+                            if (kenenergy && mass && gravaccel && deltay == true)
+                            {
+                                TotalEnergy = KenEnergy + (Mass * GravAccel * DeltaY);
+                            }
+
+                            else
+                            {
+                                if (kenenergy && springdisplacement && springconstant == true)
+                                {
+                                    TotalEnergy = KenEnergy + ((.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2));
+                                }
+
+                                else
+                                {
+                                    if (mass && velocity && gravpotenergy && deltay == true)
+                                    {
+                                        TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + (Mass * GravAccel * DeltaY);
+                                    }
+
+                                    else
+                                    {
+                                        if (mass && velocity && springconstant && springdisplacement == true)
+                                        {
+                                            TotalEnergy = ((.5 * Mass) * Math.Pow(Velocity, 2)) + ((.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2));
+                                        }
+
+                                        else
+                                        {
+                                            NotEnoughInfo = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SolveKenEnergy()
+        {
+            if (mass && velocity == true)
+            {
+                KenEnergy = (.5 * Mass) * Math.Pow(Velocity, 2);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolvePotEnergy()
+        {
+            if (mass && gravaccel && deltay == true)
+            {
+                GravPotentialEnergy = Mass * GravAccel * DeltaY;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveGravPotEnergy()
+        {
+            if (mass && gravaccel && deltay == true)
+            {
+                GravPotentialEnergy = Mass * GravAccel * DeltaY;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveSpringPotEnergy()
+        {
+            if (springconstant && springdisplacement == true)
+            {
+                SpringPotentialEnergy = (.5 * SpringConstant) * Math.Pow(SpringDisplacement, 2);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveSpringForce()
+        {
+            if (HorizontalSpring == true)
+            {
+                if (springforce == false)
+                {
+                    if (springconstant && springdisplacement == true)
+                    {
+                        SpringForce = SpringConstant * SpringDisplacement;
+                    }
+
+                    else
+                    {
+                        NotEnoughInfo = true;
+                    }
+                }
+            }
+
+            else
+            {
+                if (InEquil == true)
+                {
+                    if (springforce == false)
+                    {
+                        if (gravforce == true)
+                        {
+                            SpringForce = GravForce;
+                        }
+
+                        else
+                        {
+                            if (mass && gravaccel == true)
+                            {
+                                SpringForce = Mass * GravAccel;
+                            }
+
+                            else
+                            {
+                                if (springdisplacement && springconstant == true)
+                                {
+                                    SpringForce = SpringConstant * SpringDisplacement;
+                                }
+
+                                else
+                                {
+                                    NotEnoughInfo = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SolveSpringConstant()
+        {
+            if (HorizontalSpring == true)
+            {
+                if (springconstant == false)
+                {
+                    if (springforce && springdisplacement == true)
+                    {
+                        SpringConstant = SpringForce / SpringDisplacement;
+                    }
+
+                    else
+                    {
+                        NotEnoughInfo = true;
+                    }
+                }
+            }
+
+            else
+            {
+                if (InEquil == true)
+                {
+                    if (springconstant == false)
+                    {
+                        if (springforce && springforce == true)
+                        {
+                            SpringConstant = SpringForce / SpringDisplacement;
+                        }
+
+                        else
+                        {
+                            if (gravforce && springdisplacement == true)
+                            {
+                                SpringConstant = GravForce / SpringDisplacement;
+                            }
+
+                            else
+                            {
+                                if (mass && gravaccel && springdisplacement == true)
+                                {
+                                    SpringConstant = (Mass * GravAccel) / SpringDisplacement;
+                                }
+
+                                else
+                                {
+                                    NotEnoughInfo = true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                else
+                {
+                    if (springforce && springdisplacement == true)
+                    {
+                        SpringConstant = SpringForce / SpringDisplacement;
+                    }
+
+                    else
+                    {
+                        NotEnoughInfo = true;
+                    }
+                }
+            }
+        }
+
+        public void SolveSpringDisplacement()
+        {
+            if (HorizontalSpring == true)
+            {
+                if (springforce && springdisplacement == true)
+                {
+                    SpringDisplacement = SpringForce / SpringConstant;
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+
+            else
+            {
+                if (InEquil == true)
+                {
+                    if (springforce && springconstant == true)
+                    {
+                        SpringDisplacement = SpringForce / SpringConstant;
+                    }
+
+                    else
+                    {
+                        if (gravforce && springconstant == true)
+                        {
+                            SpringDisplacement = GravForce / SpringConstant;
+                        }
+
+                        else
+                        {
+                            if (mass && gravaccel && springconstant == true)
+                            {
+                                SpringDisplacement = (Mass * GravAccel) / SpringConstant;
+                            }
+
+                            else
+                            {
+                                NotEnoughInfo = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void SolveTime()
+        {
+            double VerticalVel = Math.Pow((Math.Sin(LaunchAngle) * Velocity), .5);
+            double HorizontalVel = Math.Pow((Math.Cos(LaunchAngle) * Velocity), .5);
+
+            if (deltay && gravaccel == true)
+            {
+                Time = Math.Pow((DeltaY / (.5 * GravAccel)), 2);
+            }
+
+            else
+            {
+                if (deltay && gravaccel && verticalvel == true)
+                {
+                    Time = Math.Pow((DeltaY / ((.5 * GravAccel) + VerticalVel)), .5);
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+        }
+
+        public void SolveAllBasic()
+        {
+            SolveMass();
+            SolveVelocity();
+            SolveInitVel();
+            SolveAccel();
+            SolveHeight();
+            SolveDistance();
+            SolveGravAccel();
+            SolveGravForce();
+            SolveTotalEnergy();
+            SolveKenEnergy();
+            SolvePotEnergy();
+            SolveGravPotEnergy();
+            SolveSpringPotEnergy();
+            SolveSpringForce();
+            SolveSpringConstant();
+            SolveSpringDisplacement();
+            SolveNormalForce();
+            SolveTime();
+        }
+    }
+
+    public class CircularCalculation
+    {
+        double Mass;
+        bool mass;
+
+        double Torgue;
+        bool torgue;
+
+        double TanVelocity;
+        bool tanvelocity;
+
+        double AngularVelocity;
+        bool angularvelocity;
+
+        double Radius;
+        bool radius;
+
+        double Accel;
+        bool accel;
+
+        double AngularAccel;
+        bool angularaccel;
+
+        double Period;
+        bool period;
+
+        double CentriAccel;
+        bool centriaccel;
+
+        double CentriNetForce;
+        bool centrinetforce;
+
+        double MinTopVel;
+        bool mintopvel;
+
+        double MinBotVel;
+        bool minbotvel;
+
+        double MaxVel;
+        bool maxvel;
+
+        double Tension;
+        bool tension;
+
+        double GravAccel;
+        bool gravaccel;
+
+        double PendulumLength;
+        bool pendulumlength;
+
+        double AppliedForce;
+        bool appliedforce;
+
+        double Theta;
+        bool theta;
+
+        double InertMom;
+        bool inertmom;
+
+        double Velocity;
+        bool velocity;
+
+        double RotKenEnergy;
+        bool rotkenenergy;
+
+        double KenEnergy;
+        bool kenenergy;
+
+        bool NotEnoughInfo;
+
+        public void SolveMass()
+        {
+            // I need to put stuff in here...
+        }
+
+        public void SolveTorgue()
+        {
+            if (appliedforce && radius == true)
+            {
+                Torgue = (AppliedForce * Radius) * Math.Sin(Theta);
+            }
+
+            else
+            {
+                if (inertmom && angularaccel == true)
+                {
+                    Torgue = InertMom * AngularAccel;
+                }
+
+                else
+                {
+                    if (mass && radius && angularaccel == true)
+                    {
+                        Torgue = (Mass * Math.Pow(Radius, 2)) * AngularAccel;
+                    }
+
+                    else
+                    {
+                        NotEnoughInfo = true;
+                    }
+                }
+            }
+        }
+
+        public void SolveTanVel()
+        {
+            if (radius && period == true)
+            {
+                TanVelocity = ((2 * Math.PI) * Radius) / Period;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveAngVel()
+        {
+            if (velocity && radius == true)
+            {
+                AngularVelocity = Velocity / Radius;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveRadius()
+        {
+            if (velocity && angularvelocity == true)
+            {
+                Radius = Velocity / AngularVelocity;
+            }
+
+            else
+            {
+                if (accel && angularaccel == true)
+                {
+                    Radius = Accel / AngularAccel;
+                }
+                // some more stuff can be added here to make it more thourough, but this should work for now.
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+        }
+
+        public void SolveAccel()
+        {
+            if (radius && angularaccel == true)
+            {
+                Accel = Radius * AngularAccel;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveAngAccel()
+        {
+            if (accel && radius == true)
+            {
+                AngularAccel = Accel / Radius;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolvePeriod()
+        {
+            if (radius && tanvelocity == true)
+            {
+                Period = ((2 * Math.PI) * Radius) / TanVelocity;
+            }
+
+            else
+            {
+                if (pendulumlength == true && gravaccel == true)
+                {
+                    Period = (2 * Math.PI) * Math.Pow((PendulumLength / GravAccel), .5);
+                }
+
+                else
+                {
+                    NotEnoughInfo = true;
+                }
+            }
+        }
+
+        public void SolveCentriAccel()
+        {
+            // I will finish, and start, this method later.
+        }
+
+        public void SolveCentriNetForce()
+        {
+            if (mass && tanvelocity && radius == true)
+            {
+                CentriNetForce = (Mass * Math.Pow(TanVelocity, 2)) / Radius;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveMinTopVel()
+        {
+            if (gravaccel && radius == true)
+            {
+                MinTopVel = Math.Pow((GravAccel * Radius), .5);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveMinBotVel()
+        {
+            if (mintopvel && gravaccel && radius == true)
+            {
+                MinBotVel = MinTopVel + Math.Pow((GravAccel * 2 * Radius), .5);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveMaxVel()
+        {
+            // I'll work on this later...
+        }
+
+        public void SolveTension()
+        {
+            // finish this later...
+        }
+
+        public void SolveGravAccel()
+        {
+            if (pendulumlength == true && period == true)
+            {
+                GravAccel = (Math.Pow((2 * Math.PI), 2) * PendulumLength) / Math.Pow(Period, 2);
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolvePendulumLenth()
+        {
+            if (period && gravaccel == true)
+            {
+                PendulumLength = Math.Pow(((2 * Math.PI) * Period), 2) * GravAccel;
+            }
+
+            else
+            {
+                NotEnoughInfo = true;
+            }
+        }
+
+        public void SolveAppliedForce()
+        {
+            // put stuff here.
         }
     }
 }
